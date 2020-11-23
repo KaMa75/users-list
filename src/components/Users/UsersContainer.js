@@ -7,12 +7,13 @@ function UsersContainer() {
         fetch('users.json')
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                console.log(data);
+                setUsersList(data);
             })
             .catch(err => {
-                console.log(err)
+                console.log(err);
             });
-    });
+    }, []);
 
     console.log(usersList);
 
