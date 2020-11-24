@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
 import {UsersList} from './';
 
@@ -9,7 +10,6 @@ function UsersContainer() {
         fetch('users.json')
             .then(res => res.json())
             .then(data => {
-                // console.log(data);
                 setUsersList(data);
             })
             .catch(err => {
@@ -17,14 +17,21 @@ function UsersContainer() {
             });
     }, []);
 
-    console.log(usersList);
-
     return (
-        <div>
-            {usersList && <UsersList
-                users={usersList}
-            />}
-        </div>
+        <Router>
+            <div>
+                <Switch>
+                    <Route exact path="/">
+                        <Redirect to="/users"/>
+                    </Route>
+                    <Route path="/users">
+                        {usersList && <UsersList
+                            users={usersList}
+                        />}
+                    </Route>
+                </Switch>
+            </div>
+        </Router>
     );
 }
 
