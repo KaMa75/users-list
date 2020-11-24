@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
+import {UsersList} from './';
+
 function UsersContainer() {
     const [usersList, setUsersList] = useState();
 
@@ -7,7 +9,7 @@ function UsersContainer() {
         fetch('users.json')
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 setUsersList(data);
             })
             .catch(err => {
@@ -19,7 +21,9 @@ function UsersContainer() {
 
     return (
         <div>
-            User
+            {usersList && <UsersList
+                users={usersList}
+            />}
         </div>
     );
 }
