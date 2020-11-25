@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link, useHistory} from 'react-router-dom';
 
 import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Button } from '@material-ui/core';
 
@@ -10,47 +11,50 @@ const columns = [
     {id: 'action', label: '', minWidth: 30}
 ];
 
-const createHeader = (data) => (
-    data.map(column => {
-        return (
-            <TableCell
-                key={column.id}
-                style={{minWidth: column.minWidth}}
-            >
-                {column.label}
-            </TableCell>
-        )
-    })
-);
-
-const createBody = (data) => (
-    data.map(row => {
-        return (
-            <TableRow
-                key={row.id}
-            >
-                <TableCell>{row.id}</TableCell>
-                <TableCell>{row.first_name}</TableCell>
-                <TableCell>{row.last_name}</TableCell>
-                <TableCell>{row.email}</TableCell>
-                <TableCell>
-                    <Button
-                        color="primary"
-                        onClick={handleOnClick(row.id)}
-                    >
-                        Szczegóły
-                    </Button>
-                </TableCell>
-            </TableRow>
-        )
-    })
-);
-
-const handleOnClick = (id) => () => {
-    console.log(id)
-}
 
 function UsersList({users}) {
+
+    const history = useHistory();
+
+    const createHeader = (data) => (
+        data.map(column => {
+            return (
+                <TableCell
+                    key={column.id}
+                    style={{minWidth: column.minWidth}}
+                >
+                    {column.label}
+                </TableCell>
+            )
+        })
+    );
+
+    const createBody = (data) => (
+        data.map(row => {
+            return (
+                <TableRow
+                    key={row.id}
+                >
+                    <TableCell>{row.id}</TableCell>
+                    <TableCell>{row.first_name}</TableCell>
+                    <TableCell>{row.last_name}</TableCell>
+                    <TableCell>{row.email}</TableCell>
+                    <TableCell>
+                        <Button
+                            color="primary"
+                            onClick={handleOnClick(row.id)}
+                        >
+                            Szczegóły
+                        </Button>
+                    </TableCell>
+                </TableRow>
+            )
+        })
+    );
+
+    const handleOnClick = (id) => () => {
+        history.push(`/user/${id}`);
+    }
 
     const renderTable = () => {
         return (
