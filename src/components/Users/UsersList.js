@@ -52,8 +52,6 @@ const handleOnClick = (id) => () => {
 
 function UsersList({users}) {
 
-    console.log(users)
-
     const renderTable = () => {
         return (
             <TableContainer
