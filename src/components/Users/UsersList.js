@@ -1,7 +1,7 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
 
-import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Button } from '@material-ui/core';
+import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Button, Input } from '@material-ui/core';
 
 const columns = [
     {id: 'id', label: 'ID', minWidth: 20},
@@ -56,26 +56,23 @@ function UsersList({users}) {
         history.push(`/user/${id}`);
     }
 
-    const renderTable = () => {
-        return (
-            <TableContainer
-                style={{maxWidth: 1000, padding: 50}}
-            >
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            { createHeader(columns) }
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {createBody(users)}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        );
-    }
 
-    return renderTable();
+    return (
+        <TableContainer
+            style={{maxWidth: 1000, padding: 50}}
+        >
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        { createHeader(columns) }
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {createBody(users)}
+                </TableBody>
+            </Table>
+        </TableContainer>
+    );
 
 }
 
