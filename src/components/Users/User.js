@@ -1,11 +1,30 @@
 import React from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
+
+import {Button} from '@material-ui/core';
 
 function User() {
     const {id} = useParams();
+    const history = useHistory();
+
+    const handleOnClick = () => {
+        history.goBack();
+    }
+
     return (
         <div>
-            {id}
+            <div>
+                {id}
+            </div>
+            <div>
+                <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={handleOnClick}
+                >
+                    Lista użytkowników
+                </Button>
+            </div>
         </div>
     );
 }
