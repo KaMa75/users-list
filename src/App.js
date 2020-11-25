@@ -6,21 +6,22 @@ import './App.css';
 
 function App() {
   return (
-    <Router>
       <div className="App">
+    {/* <Router>
         <Switch>
-            <Route exact path="/">
+            <Route path="/">
                 <Redirect to="/users"/>
             </Route>
             <Route path="/users">
               <UsersContainer />
-            </Route>
-            <Route path="/user/:id">
+              </Route>
+              <Route path="/user/:id">
               <User />
             </Route>
         </Switch>
+    </Router> */}
+            <UsersContainer />
       </div>
-    </Router>
   );
 }
 
