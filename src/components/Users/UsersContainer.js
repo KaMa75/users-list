@@ -26,11 +26,9 @@ function UsersContainer() {
                 </Route>
 
                 <Route path="/users">
-                    <div>
-                        {usersList && <UsersList
-                            users={usersList}
-                        />}
-                    </div>
+                    {usersList && <UsersList
+                        users={usersList}
+                    />}
                 </Route>
 
                 <Route path="/user/:id">

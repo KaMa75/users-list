@@ -42,7 +42,7 @@ function UsersList({users}) {
                     <TableCell>
                         <Button
                             color="primary"
-                            onClick={handleOnClick(row.id)}
+                            onClick={handleDetails(row.id)}
                         >
                             Szczegóły
                         </Button>
@@ -52,26 +52,61 @@ function UsersList({users}) {
         })
     );
 
-    const handleOnClick = (id) => () => {
+    const handleDetails = (id) => () => {
         history.push(`/user/${id}`);
     }
 
+    const handleReset = () => {
+        console.log('reset')
+    }
+
+    const handleEnter = (e) => {
+        if(e.key === 'Enter') {
+            console.log('enter', e.target.value);
+        }
+    }
+
+    const handleChange = (e) => {
+        console.log(e.target.value);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    }
 
     return (
-        <TableContainer
-            style={{maxWidth: 1000, padding: 50}}
-        >
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        { createHeader(columns) }
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {createBody(users)}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <div className="userslist-container">
+            <form
+                style={{padding: 50}}
+                onSubmit={handleSubmit}
+            >
+                <Input
+                    style={{marginRight: 25, minWidth: 500}}
+                    placeholder="Wyszukaj po imieniu i nazwisku"
+                    onChange={handleChange}
+                    onKeyDown={handleEnter}
+                />
+                <Button
+                    onClick={handleReset}
+                >
+                    Reset
+                </Button>
+            </form>
+            <TableContainer
+                style={{maxWidth: 1000, padding: 50}}
+            >
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            { createHeader(columns) }
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {createBody(users)}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </div>
     );
 
 }
