@@ -1,42 +1,65 @@
 import React, {useEffect, useState} from 'react';
-import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
+import {CircularProgress} from '@material-ui/core';
 
-import {UsersList, User} from './';
+import {UsersList, UserSearch} from './';
 
 function UsersContainer() {
     const [usersList, setUsersList] = useState();
+    const [isLoading, setLoading] = useState(true);
+
+    let timer;
 
     useEffect(() => {
-        fetch('users.json')
-            .then(res => res.json())
-            .then(data => {
-                setUsersList(data);
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        getData(setUsersList);
     }, []);
 
+    const getData = (setUsers) => {
+        timer = setTimeout(() => {
+            fetch('users.json')
+                .then(res => res.json())
+                .then(data => {
+                    setUsers(data);
+                    setLoading(false);
+                    clearTimeout(timer);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }, 1000);
+    }
+
+    const findPhrase = (phrase, name) => {
+        const pattern = new RegExp(phrase, 'i');
+        return pattern.test(name);
+    }
+
+    const setFilteredUsersList = (value) => () => {
+        const filteredList = usersList.filter((userData) => {
+            return findPhrase(value, userData.first_name) || findPhrase(value, userData.last_name)
+        });
+        setUsersList(filteredList);
+    }
+
+    const findUsers = (value) => {
+        setLoading(true);
+        getData(setFilteredUsersList(value));
+    }
+
+    const resetUsers = () => {
+        setLoading(true);
+        getData(setUsersList);
+    }
+
     return (
-        <Router>
-            <Switch>
-
-                <Route exact path="/">
-                    <Redirect to="/users"/>
-                </Route>
-
-                <Route path="/users">
-                    {usersList && <UsersList
-                        users={usersList}
-                    />}
-                </Route>
-
-                <Route path="/user/:id">
-                    <User />
-                </Route>
-
-            </Switch>
-        </Router>
+        <div className="userslist-container">
+            <UserSearch
+                findUsers={findUsers}
+                resetUsers={resetUsers}
+            />
+            {isLoading ? <CircularProgress /> : <UsersList
+                users={usersList}
+            />}
+        </div>
     );
 }
 
