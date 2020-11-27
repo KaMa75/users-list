@@ -10,32 +10,32 @@ const columns = [
     {id: 'email', label: 'E-mail', minWidth: 150}
 ];
 
-const createHeader = (data) => (
-    data.map(column => {
-        return (
-            <TableCell
-                key={column.id}
-                style={{minWidth: column.minWidth}}
-            >
-                {column.label}
-            </TableCell>
-        )
-    })
-);
+function UsersList({users, handleSetUser}) {
 
-const createBody = (data) => (
-    data.map(row => {
-        return (
-            <User
-                key={row.id}
-                row={row}
-            />
-        )
-    })
-);
+    const createHeader = (data) => (
+        data.map(column => {
+            return (
+                <TableCell
+                    key={column.id}
+                    style={{minWidth: column.minWidth}}
+                >
+                    {column.label}
+                </TableCell>
+            )
+        })
+    );
 
-
-function UsersList({users}) {
+    const createBody = (data) => (
+        data.map(row => {
+            return (
+                <User
+                    key={row.id}
+                    row={row}
+                    handleSetUser={handleSetUser}
+                />
+            )
+        })
+    );
 
     return (
 

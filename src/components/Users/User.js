@@ -1,18 +1,20 @@
 import React from 'react';
-import {useHistory} from 'react-router-dom';
 import {TableRow, TableCell} from '@material-ui/core';
 
-function User({row}) {
+import {useHistory} from 'react-router-dom';
+
+function User({row, handleSetUser}) {
 
     const history = useHistory();
 
-    const handleDetails = (id) => () => {
-        history.push(`/user/${id}`);
+    const handleOnClick = () => {
+        handleSetUser(row);
+        history.push('/user-profile');
     }
 
     return (
         <TableRow
-            onClick={handleDetails(row.id)}
+            onClick={handleOnClick}
         >
             <TableCell>{row.id}</TableCell>
             <TableCell>{row.first_name}</TableCell>

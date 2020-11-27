@@ -3,7 +3,7 @@ import {CircularProgress} from '@material-ui/core';
 
 import {UsersList, UserSearch} from './';
 
-function UsersContainer() {
+function UsersContainer({handleSetUser}) {
     const [usersList, setUsersList] = useState();
     const [isLoading, setLoading] = useState(true);
 
@@ -58,6 +58,7 @@ function UsersContainer() {
             />
             {isLoading ? <CircularProgress /> : <UsersList
                 users={usersList}
+                handleSetUser={handleSetUser}
             />}
         </div>
     );

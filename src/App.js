@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
 import UsersContainer from './components/Users';
@@ -6,6 +6,13 @@ import UserDetail from './components/UserDetail';
 import './App.css';
 
 function App() {
+
+  const [user, setUser] = useState({});
+
+  const handleSetUser = (user) => {
+    setUser(user);
+  }
+
   return (
     <div className="App">
       <Router>
@@ -16,11 +23,13 @@ function App() {
           </Route>
 
           <Route exact path="/users">
-            <UsersContainer />
+            <UsersContainer
+              handleSetUser={handleSetUser}
+            />
           </Route>
 
-          <Route path="/user/:id">
-            <UserDetail />
+          <Route path="/user-profile">
+            <UserDetail user={user} />
           </Route>
 
         </Switch>

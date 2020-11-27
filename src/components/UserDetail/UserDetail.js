@@ -1,10 +1,11 @@
 import React from 'react';
-import {useParams, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 import {Button} from '@material-ui/core';
 
-function UserDetail() {
-    const {id} = useParams();
+function UserDetail({user}) {
+    console.log(user);
+
     const history = useHistory();
 
     const handleOnClick = () => {
@@ -14,7 +15,7 @@ function UserDetail() {
     return (
         <div>
             <div>
-                {id}
+
             </div>
             <div>
                 <Button
