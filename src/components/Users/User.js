@@ -1,31 +1,24 @@
 import React from 'react';
-import {useParams, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
+import {TableRow, TableCell} from '@material-ui/core';
 
-import {Button} from '@material-ui/core';
+function User({row}) {
 
-function User() {
-    const {id} = useParams();
     const history = useHistory();
 
-    const handleOnClick = () => {
-        history.goBack();
+    const handleDetails = (id) => () => {
+        history.push(`/user/${id}`);
     }
 
     return (
-        <div>
-            <div>
-                {id}
-            </div>
-            <div>
-                <Button
-                    variant="outlined"
-                    color="primary"
-                    onClick={handleOnClick}
-                >
-                    Lista użytkowników
-                </Button>
-            </div>
-        </div>
+        <TableRow
+            onClick={handleDetails(row.id)}
+        >
+            <TableCell>{row.id}</TableCell>
+            <TableCell>{row.first_name}</TableCell>
+            <TableCell>{row.last_name}</TableCell>
+            <TableCell>{row.email}</TableCell>
+        </TableRow>
     );
 }
 
