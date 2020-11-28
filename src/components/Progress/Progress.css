@@ -1,0 +1,6 @@
+.progress {
+    position: relative;
+    top: calc(100vh / 2 - 100px);
+    display: flex;
+    justify-content: center;
+}

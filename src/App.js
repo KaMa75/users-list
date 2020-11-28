@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom
 
 import UsersContainer from './components/Users';
 import UserDetail from './components/UserDetail';
+import { PageNotFound } from './components/EmptyStates';
 import './App.css';
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="app-container">
       <Router>
         <Switch>
 
@@ -28,8 +29,12 @@ function App() {
             />
           </Route>
 
-          <Route path="/user-profile">
+          <Route exact path="/user-profile">
             <UserDetail user={user} />
+          </Route>
+
+          <Route>
+            <PageNotFound />
           </Route>
 
         </Switch>

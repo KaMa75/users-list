@@ -27,12 +27,12 @@ function UserSearch({findUsers, resetUsers}) {
 
     return (
         <form
-            style={{padding: 50}}
+            style={{marginBottom: 30}}
             onSubmit={handleSubmit}
         >
             <Input
                 value={searchValue}
-                style={{marginRight: 25, minWidth: 500}}
+                style={{marginRight: 25, marginBottom: 10, minWidth: 300}}
                 placeholder="Wyszukaj po imieniu i nazwisku"
                 onChange={handleChange}
                 onKeyDown={handleEnter}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core';
 
-import {User} from './';
+import { DataNotFound } from '../EmptyStates';
 
 const columns = [
     {id: 'id', label: 'ID', minWidth: 20},
@@ -10,7 +10,7 @@ const columns = [
     {id: 'email', label: 'E-mail', minWidth: 150}
 ];
 
-function UsersList({users, handleSetUser}) {
+function UsersList({children, users}) {
 
     const createHeader = (data) => (
         data.map(column => {
@@ -25,36 +25,30 @@ function UsersList({users, handleSetUser}) {
         })
     );
 
-    const createBody = (data) => (
-        data.map(row => {
+    const renderUserList = () => {
+        if(users && users.length > 0) {
             return (
-                <User
-                    key={row.id}
-                    row={row}
-                    handleSetUser={handleSetUser}
-                />
+                <TableContainer
+                    style={{maxWidth: 1000}}
+                >
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                { createHeader(columns) }
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {children}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             )
-        })
-    );
+        }
 
-    return (
+        return <DataNotFound />
+    }
 
-        <TableContainer
-            style={{maxWidth: 1000, padding: 50}}
-        >
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        { createHeader(columns) }
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {createBody(users)}
-                </TableBody>
-            </Table>
-        </TableContainer>
-
-    );
+    return renderUserList();
 
 }
 

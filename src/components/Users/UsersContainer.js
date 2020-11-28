@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {CircularProgress} from '@material-ui/core';
 
-import {UsersList, UserSearch} from './';
+import {UsersList, UserSearch, User} from './';
+import Progress from '../Progress';
 
 function UsersContainer({handleSetUser}) {
     const [usersList, setUsersList] = useState();
@@ -33,8 +33,8 @@ function UsersContainer({handleSetUser}) {
         return pattern.test(name);
     }
 
-    const setFilteredUsersList = (value) => () => {
-        const filteredList = usersList.filter((userData) => {
+    const setFilteredUsersList = (value) => (data) => {
+        const filteredList = data.filter((userData) => {
             return findPhrase(value, userData.first_name) || findPhrase(value, userData.last_name)
         });
         setUsersList(filteredList);
@@ -50,16 +50,36 @@ function UsersContainer({handleSetUser}) {
         getData(setUsersList);
     }
 
+    const createBody = (data) => (
+        data.map(row => {
+            return (
+                <User
+                    key={row.id}
+                    row={row}
+                    handleSetUser={handleSetUser}
+                />
+            )
+        })
+    );
+
     return (
-        <div className="userslist-container">
-            <UserSearch
-                findUsers={findUsers}
-                resetUsers={resetUsers}
-            />
-            {isLoading ? <CircularProgress /> : <UsersList
-                users={usersList}
-                handleSetUser={handleSetUser}
-            />}
+        <div style={{position: 'relative'}}>
+            <div>
+                <UserSearch
+                    findUsers={findUsers}
+                    resetUsers={resetUsers}
+                />
+            </div>
+            <div>
+                {isLoading ? <Progress /> : (
+                <UsersList
+                    users={usersList}
+                    handleSetUser={handleSetUser}
+                >
+                    {createBody(usersList)}
+                </UsersList>
+                )}
+            </div>
         </div>
     );
 }

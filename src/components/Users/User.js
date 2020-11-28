@@ -14,6 +14,7 @@ function User({row, handleSetUser}) {
 
     return (
         <TableRow
+            style={{cursor: 'pointer'}}
             onClick={handleOnClick}
         >
             <TableCell>{row.id}</TableCell>
